@@ -4,6 +4,9 @@ import {BrowserRouter as Router,Route} from 'react-router-dom'
 import Signup from './Pages/Signup'
 import Login from './Pages/Login'
 import Create from './Pages/Create'
+import View from './Pages/ViewPost'
+
+import Post  from './store/PostContext';
 import {AuthContext, FirebaseContext} from './store/Context'
 /**
  * ?  =====Import Components=====
@@ -20,6 +23,7 @@ firebase.auth().onAuthStateChanged((user)=>{
   })
   return (
     <div>
+      <Post>
       <Router>
        <Route exact path='/'>
       <Home />
@@ -33,7 +37,11 @@ firebase.auth().onAuthStateChanged((user)=>{
       <Route exact path='/create'>
       <Create/>
       </Route>
+      <Route exact path='/viewpost'>
+      <View/>
+      </Route>
       </Router>
+      </Post>
     </div>
   );
 }

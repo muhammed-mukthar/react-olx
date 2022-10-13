@@ -2,11 +2,15 @@ import React,{useEffect,useContext,useState} from 'react';
 
 import Heart from '../../assets/Heart';
 import { FirebaseContext } from '../../store/Context';
+import { PostContext } from '../../store/PostContext';
 import './Post.css';
+import {useHistory} from 'react-router-dom'
 
 function Posts() {
  const {firebase}=  useContext(FirebaseContext)
  const [products,setProducts]=useState([])
+ const {setPostDetails}=useContext(PostContext)
+ const history=useHistory()
 useEffect(()=>{
   firebase.firestore().collection('products').get().then((snap)=>{
     const allPost=snap.docs.map((product)=>{
@@ -30,6 +34,10 @@ useEffect(()=>{
          {products.map(product=>{
        return   <div
             className="card"
+            onClick={()=>{
+              setPostDetails(product)
+              history.push('/viewpost')
+            }}
           >
             <div className="favorite">
               <Heart></Heart>
@@ -50,29 +58,7 @@ useEffect(()=>{
         }
         </div>
       </div>
-      <div className="recommendations">
-        <div className="heading">
-          <span>Fresh recommendations</span>
-        </div>
-        <div className="cards">
-          <div className="card">
-            <div className="favorite">
-              <Heart></Heart>
-            </div>
-            <div className="image">
-              <img src="../../../Images/R15V3.jpg" alt="" />
-            </div>
-            <div className="content">
-              <p className="rate">&#x20B9; 250000</p>
-              <span className="kilometer">Two Wheeler</span>
-              <p className="name"> YAMAHA R15V3</p>
-            </div>
-            <div className="date">
-              <span>10/5/2021</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState,useContext } from 'react';
 
 
 import Logo from '../../olx-logo.png';
-import {useHistory} from 'react-router-dom'
+import {useHistory,Link} from 'react-router-dom'
 import { FirebaseContext } from '../../store/Context';
 import './Signup.css';
 
@@ -26,7 +26,9 @@ result.user.updateProfile({displayName:username}).then(()=>{
   })
 })
     
-   })
+   }).catch((err)=>{
+    alert(err.message)
+  })
   }
   return (
     <div>
@@ -84,7 +86,8 @@ result.user.updateProfile({displayName:username}).then(()=>{
           <br />
           <button>Signup</button>
         </form>
-        <a>Login</a>
+        <Link to="/login" className="link">    <a>Login</a></Link>
+      
       </div>
     </div>
   );

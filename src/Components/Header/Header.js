@@ -1,5 +1,5 @@
 import React,{useContext} from 'react';
-import {useHistory} from 'react-router-dom'
+import {useHistory,Link} from 'react-router-dom'
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
 import Search from '../../assets/Search';
@@ -38,12 +38,10 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>{user ? `Welcome ${user.displayName}` : 'Login'}</span>
+          <span>{user ? `Welcome ${user.displayName}` : <Link to="/login" className="link">Login</Link>}</span>
           <hr />
-         
         </div>
         {user && <span onClick={()=>{
-         
           firebase.auth().signOut();
           history.push('/login')
         }}>Logout</span>}
@@ -52,7 +50,7 @@ function Header() {
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>
-            <span>SELL</span>
+            <span>{user ? <Link to="/create" className="link">Sell</Link> : <Link to="/login" className="link">Sell</Link>}</span>
           </div>
         </div>
       </div>
